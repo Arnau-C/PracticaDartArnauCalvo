@@ -1,5 +1,6 @@
-import 'package:practica_dart_arnau_calvo/practica_dart_arnau_calvo.dart' as practica_dart_arnau_calvo;
+import 'package:practica_dart_arnau_calvo/view_models/app_view_model.dart';
 
-void main(List<String> arguments) {
-  print('Hello world: ${practica_dart_arnau_calvo.calculate()}!');
+void main() {
+  final app = AppViewModel();
+  app.start();
 }
