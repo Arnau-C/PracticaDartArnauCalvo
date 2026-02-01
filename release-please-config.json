@@ -1,0 +1,8 @@
+{
+  "packages": {
+    ".": {
+      "release-type": "dart",
+      "package-name": "practica_dart_arnau_calvo"
+    }
+  }
+}
