@@ -33,7 +33,7 @@ class AppViewModel {
           break;
         default:
           print(
-            "Opció no vàlida. Si us plau, intenta-ho de nou.",
+            "Opció no vàlida. Si us plau, intenta-ho de nou",
           );
       }
     }
