@@ -38,4 +38,8 @@ class AppViewModel {
       }
     }
   }
+
+  void menuUser() {
+    bool isUserMenuRunning = true;
+  }
 }

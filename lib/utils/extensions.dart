@@ -1,0 +1,1 @@
+extension StringValidators on String {}
