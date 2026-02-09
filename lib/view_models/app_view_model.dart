@@ -1,45 +1,49 @@
-import 'dart:io';
-
-import 'package:practica_dart_arnau_calvo/views/view_login.dart';
+import 'package:practica_dart_arnau_calvo/controllers/auth_controller.dart';
+import 'package:practica_dart_arnau_calvo/models/app_state.dart';
 
 class AppViewModel {
-  final ViewLogin _viewLogin =
-      ViewLogin();
-  bool _isRunning = true;
+  //Constructor singleton private
+  AppViewModel._internal();
 
-  void start() {
-    while (_isRunning) {
-      _viewLogin.printMenuLogin();
-      String? option = stdin
-          .readLineSync()
-          ?.toUpperCase();
+  //Singleton instance
+  static final AppViewModel _instance =
+      AppViewModel._internal();
 
-      switch (option) {
-        case 'E':
-          print(
-            "Has seleccionat 'Entrar'.",
-          );
-          // Aquí aniria la lògica per entrar
-          break;
-        case 'R':
-          print(
-            "Has seleccionat 'Registrar-se'.",
-          );
-          // Aquí aniria la lògica per registrar-se
-          break;
-        case 'T':
-          print("Tancant aplicació...");
-          _isRunning = false;
-          break;
-        default:
-          print(
-            "Opció no vàlida. Si us plau, intenta-ho de nou",
-          );
-      }
-    }
+  //Factory constructor para acceder a la instancia singleton
+  factory AppViewModel() {
+    return _instance;
   }
 
-  void menuUser() {
-    bool isUserMenuRunning = true;
+  AppState _state = AppState.splash;
+
+  final AuthController _authController =
+      AuthController();
+
+  void startApp() {
+    print("Iniciando aplicación...");
+
+    while (_state != AppState.exit) {
+      switch (_state) {
+        case AppState.splash:
+          print("Carregant dades...");
+          _state = AppState.login;
+          break;
+        case AppState.login:
+          _state = _authController
+              .gestionarInici();
+          break;
+        case AppState.menuUser:
+          print(
+            "Mostrant menú de usuario...",
+          );
+          // Aquí iría la lógica para mostrar el menú de usuario
+          _state = AppState
+              .exit; // Placeholder para salir después del menú
+          break;
+        default:
+          _state = AppState.exit;
+      }
+    }
+    print("Surt de l'aplicació.");
   }
 }
