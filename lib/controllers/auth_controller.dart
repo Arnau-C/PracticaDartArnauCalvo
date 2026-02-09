@@ -5,6 +5,7 @@ import 'package:practica_dart_arnau_calvo/utils/extensions.dart';
 import 'package:practica_dart_arnau_calvo/utils/utils.dart';
 import 'package:practica_dart_arnau_calvo/views/view_login.dart';
 
+//Controlador de autenticación, se encarga de gestionar el registro e inicio de sesión de los usuarios, mantiene una lista de usuarios registrados y el usuario actualmente logueado, tiene métodos para mostrar el menú de login, registrar un nuevo usuario y iniciar sesión, utiliza excepciones personalizadas para manejar errores en el proceso de autenticación y validación de datos
 class AuthController {
   static final AuthController
   _instance =
