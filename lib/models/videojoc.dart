@@ -18,7 +18,11 @@ sealed class Videojoc<T> {
     this.preuLloguer,
   );
 
+  // Cada videojuego implementará su propia lógica de puntuación y ranking
   String mostrarHighScores();
+
+  // Cada tipo de juego tendrá un reto del día diferente
+  String getRepteDelDia();
 
   void registrarPuntuacio(
     String mailUser,
@@ -44,6 +48,12 @@ class JocPunts extends Videojoc<int> {
     super.preuCompra,
     super.preuLloguer,
   );
+
+  //Repte del dia: Aconsegueix 5000 punts en una sola partida
+  @override
+  String getRepteDelDia() {
+    return "Repte: Aconsegueix 5000 punts en una sola partida!";
+  }
 
   //Metode per mostrar el ranking de punts
   @override
@@ -91,6 +101,11 @@ class JocTemps
   );
 
   @override
+  String getRepteDelDia() {
+    return "Repte: Completa el nivell en menys de 2 minuts!";
+  }
+
+  @override
   String mostrarHighScores() {
     var allScores =
         <MapEntry<String, Duration>>[];
@@ -126,7 +141,7 @@ class JocTemps
 }
 
 class JocVictories
-    extends Videojoc<String> {
+    extends Videojoc<bool> {
   JocVictories(
     super.nom,
     super.codi,
@@ -134,6 +149,11 @@ class JocVictories
     super.preuCompra,
     super.preuLloguer,
   );
+
+  @override
+  String getRepteDelDia() {
+    return "Repte: Guanya 3 partides consecutives!";
+  }
 
   @override
   String mostrarHighScores() {
@@ -145,9 +165,9 @@ class JocVictories
       user,
       resultados,
     ) {
-      int wins = resultados
-          .where((r) => r == 'V')
-          .length;
+      int wins = resultados.where((r) {
+        return r == true;
+      }).length;
       double winRate =
           resultados.isEmpty
           ? 0.0
@@ -173,7 +193,7 @@ class JocVictories
     )) {
       count++;
       sb.writeln(
-        "$count. ${entry.key}: ${entry.value.toStringAsFixed(1)}% wins",
+        "$count. ${entry.key}: ${entry.value.toStringAsFixed(1)}% wins", //el toStringAsFixed(1) es para mostrar solo un decimal
       );
     }
     return sb.toString();
@@ -189,6 +209,11 @@ class JocCooperatiu
     super.preuCompra,
     super.preuLloguer,
   );
+
+  @override
+  String getRepteDelDia() {
+    return "Repte: Aconseguiu 10.000 punts entre tot l'equip!";
+  }
 
   @override
   String mostrarHighScores() {

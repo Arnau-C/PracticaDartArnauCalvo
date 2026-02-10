@@ -1,4 +1,6 @@
 import 'package:practica_dart_arnau_calvo/controllers/auth_controller.dart';
+import 'package:practica_dart_arnau_calvo/controllers/game_controller.dart';
+import 'package:practica_dart_arnau_calvo/controllers/user_controller.dart';
 import 'package:practica_dart_arnau_calvo/models/app_state.dart';
 
 class AppViewModel {
@@ -19,6 +21,12 @@ class AppViewModel {
   final AuthController _authController =
       AuthController();
 
+  final UserController _userController =
+      UserController();
+
+  final GameController _gameController =
+      GameController();
+
   void startApp() {
     print("Iniciando aplicación...");
 
@@ -26,6 +34,8 @@ class AppViewModel {
       switch (_state) {
         case AppState.splash:
           print("Carregant dades...");
+          //Aquí iría la lógica para cargar datos iniciales
+
           _state = AppState.login;
           break;
         case AppState.login:
@@ -36,9 +46,15 @@ class AppViewModel {
           print(
             "Mostrant menú de usuario...",
           );
-          // Aquí iría la lógica para mostrar el menú de usuario
-          _state = AppState
-              .exit; // Placeholder para salir después del menú
+          _state = _userController
+              .gestionarMenuUser();
+          break;
+        case AppState.play:
+          print(
+            "Mostrant menú de juego...",
+          );
+          _state = _gameController
+              .gestionarMenuPartida();
           break;
         default:
           _state = AppState.exit;

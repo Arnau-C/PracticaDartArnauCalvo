@@ -1,19 +1,20 @@
 import 'dart:math';
 
 import 'package:practica_dart_arnau_calvo/models/enums.dart';
+import 'package:practica_dart_arnau_calvo/models/videojoc.dart';
 
 class Llicencia {
   final String id;
   final TipusLlicencia tipus;
-  final String jocCodi;
+  final Videojoc joc;
   int canvisPropietariRestants;
   int horesRestants;
 
   //constructor principal
-  Llicencia({
+  Llicencia._({
     required this.id,
     required this.tipus,
-    required this.jocCodi,
+    required this.joc,
     required this.canvisPropietariRestants,
     required this.horesRestants,
   });
@@ -35,12 +36,12 @@ class Llicencia {
 
   //Compra: 3 canvis de propietari restants, horesRestants = -1 (infinites)
   factory Llicencia.compra({
-    required String jocCodi,
+    required Videojoc joc,
   }) {
-    return Llicencia(
+    return Llicencia._(
       id: _generarId(),
       tipus: TipusLlicencia.compra,
-      jocCodi: jocCodi,
+      joc: joc,
       canvisPropietariRestants: 3,
       horesRestants: -1,
     );
@@ -48,12 +49,12 @@ class Llicencia {
 
   //Lloguer: 0 canvis de propietari restants, horesRestants = -1 (infinites)
   factory Llicencia.lloguer({
-    required String jocCodi,
+    required Videojoc joc,
   }) {
-    return Llicencia(
+    return Llicencia._(
       id: _generarId(),
       tipus: TipusLlicencia.lloguer,
-      jocCodi: jocCodi,
+      joc: joc,
       canvisPropietariRestants: 0,
       horesRestants: -1,
     );
@@ -61,12 +62,12 @@ class Llicencia {
 
   //Prova: 0 canvis de propietari restants, horesRestants = 3
   factory Llicencia.prova({
-    required String jocCodi,
+    required Videojoc joc,
   }) {
-    return Llicencia(
+    return Llicencia._(
       id: _generarId(),
       tipus: TipusLlicencia.prova,
-      jocCodi: jocCodi,
+      joc: joc,
       canvisPropietariRestants: 0,
       horesRestants: 3,
     );
@@ -74,6 +75,15 @@ class Llicencia {
 
   @override
   String toString() {
-    return "Llicencia $tipus ($id) - Joc: $jocCodi - Hores: $horesRestants";
+    return "Llicencia $tipus ($id) - Joc: $joc - Hores: $horesRestants";
+  }
+
+  // Método para transferir la licencia a otro usuario (solo para compra)
+  bool transferir() {
+    if (canvisPropietariRestants > 0) {
+      canvisPropietariRestants--;
+      return true;
+    }
+    return false;
   }
 }

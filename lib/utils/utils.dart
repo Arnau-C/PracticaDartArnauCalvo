@@ -31,4 +31,24 @@ class Utils {
       }
     }
   }
+
+  static int readInt(String message) {
+    while (true) {
+      stdout.write("$message: ");
+      String? input = stdin
+          .readLineSync();
+
+      if (input != null) {
+        int? result = int.tryParse(
+          input,
+        );
+        if (result != null) {
+          return result;
+        }
+      }
+      print(
+        "Error: Has d'introduir un número enter.",
+      );
+    }
+  }
 }

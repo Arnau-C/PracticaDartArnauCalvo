@@ -45,7 +45,9 @@ class AuthController {
       case "E":
         bool loggedIn = _login();
         if (loggedIn) {
-          print("login ok");
+          print(
+            "Has iniciat sessió correctament!",
+          );
           return AppState.menuUser;
         }
         return AppState.login;
@@ -164,5 +166,25 @@ class AuthController {
       print(e.toString());
       return false;
     }
+  }
+
+  // Buscar un usuario por email (Necesario para transferir juegos)
+  User? buscarUsuariPerEmail(
+    String mail,
+  ) {
+    try {
+      return _users.firstWhere((u) {
+        return u.mail == mail;
+      });
+    } catch (e) {
+      return null;
+    }
+  }
+
+  void logout() {
+    _currentUser = null;
+    print(
+      "Sessió tancada. Fins aviat!",
+    );
   }
 }
